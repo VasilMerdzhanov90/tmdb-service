@@ -6,7 +6,7 @@ async function userMiddleware(req, res, next) {
   const isUser = await userVerify(uid);
 
   if (!isUser) {
-    // return res.status(403).send("Unauthorized Access");
+    res.end("USER NOT AUTHORIZED!!!!");
     return next(new Error("Unauthorized Access"));
   }
   next();
