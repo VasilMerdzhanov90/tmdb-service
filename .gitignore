@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
 # production
 /build
 
@@ -21,5 +18,5 @@
 
 npm-debug.log*
 yarn-error.log*
-.vercel
 .env
+.backup.txt
