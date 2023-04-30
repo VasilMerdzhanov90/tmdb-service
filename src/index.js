@@ -10,32 +10,31 @@ const app = express();
 
 const fetch = fetchURLData();
 
-//middleware for users
 app.use(userMiddleware);
 
-app.get("/main/:type/:category/:page", async (req, res) => {
-  const { type, category, page } = req.params;
+app.get("/main/:requestType/:category/:page?", async (req, res) => {
+  const { requestType, category, page = 1 } = req.params;
   if (
-    (type !== "movies" && type !== "series") ||
-    !catEnums[type].includes(category)
+    (requestType !== "movies" && requestType !== "series") ||
+    !catEnums[requestType].includes(category)
   ) {
     res.send("PLEASE ENTER VALID URL");
   } else {
     await fetch
-      .loadBaseContent(type, category, page)
+      .loadBaseContent(requestType, category, page)
       .then((fetchedData) => res.send(fetchedData.data))
       .catch((err) => res.send(err.message));
   }
 });
 
-app.get("/search/:type/:keyword/:page", async (req, res) => {
-  const { type, keyword, page } = req.params;
+app.get("/search/:type/:keyword/:page?", async (req, res) => {
+  const { type, keyword, page = 1 } = req.params;
 
   if ((type !== "movies" && type !== "series") || !keyword) {
     res.send("Please enter valid URL!!!");
   } else {
     await fetch
-      .searchByKeyWord(keyword, page || 1, type)
+      .searchByKeyWord(keyword, page, type)
       .then((fetchedData) => res.send(fetchedData.data))
       .catch((err) => res.send(err.message));
   }
@@ -100,10 +99,10 @@ app.get("/getCredits/:category/:id", async (req, res) => {
   }
 });
 
-app.get("/person/:type/:id", async (req, res) => {
-  const { type, id } = req.params;
+app.get("/person/:requestType/:id", async (req, res) => {
+  const { requestType, id } = req.params;
 
-  await fetch[type](id)
+  await fetch[requestType](id)
     .then((fetchedData) => res.send(fetchedData.data))
     .catch((error) => {
       const e = error.message;

@@ -1,5 +1,5 @@
-const { appFirestore, db } = require("./config");
-const { collection, doc, getDoc } = require("firebase/firestore");
+const { db } = require("./config");
+const { doc, getDoc } = require("firebase/firestore");
 
 async function userVerify(id) {
   if (id == undefined) {
