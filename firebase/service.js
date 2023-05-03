@@ -9,7 +9,6 @@ async function userVerify(id) {
   const docSnap = await getDoc(ref);
 
   if (!docSnap.exists()) {
-    // console.log(docSnap.data());
     return false;
   }
   return true;

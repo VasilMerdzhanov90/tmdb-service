@@ -2,7 +2,6 @@ const { userVerify } = require("./firebase/service");
 
 async function userMiddleware(req, res, next) {
   const { uid } = req.headers;
-
   const isUser = await userVerify(uid);
 
   if (!isUser) {
